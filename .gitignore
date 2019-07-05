@@ -1,0 +1,6 @@
+out.log scipy-2019-imglyb.log
+*.aux
+*.log
+*.nav
+*.snm
+*.toc
