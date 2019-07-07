@@ -4,3 +4,5 @@ out.log scipy-2019-imglyb.log
 *.nav
 *.snm
 *.toc
+scipy-2019-imglyb.snippets
+scipy-2019-imglyb.vrb
