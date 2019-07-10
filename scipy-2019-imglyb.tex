@@ -13,6 +13,8 @@
 
 \usepackage{pygmentex}
 
+\usepackage{multimedia}
+
 \usepackage{tikz}
 \usetikzlibrary{calc}
 \usetikzlibrary{decorations}
@@ -44,7 +46,10 @@
 
 \usepackage{listings}
 \lstset{
-    basicstyle=\ttfamily\scriptsize
+    basicstyle=\ttfamily\scriptsize,
+    commentstyle = \color[HTML]{808080}, %% Sets comment color.
+    keywordstyle = \color[HTML]{A00080}\bfseries, %% Sets  keyword color.
+    stringstyle = \color[HTML]{008000}, %% Sets  string color.
 }
 
 \newcommand{\urlScrSz}[1]{\scriptsize\url{#1}}
@@ -119,6 +124,11 @@
     % this huge chasm in between that separates those two peaks. I created imglyb to bridge this
     % chasm for shared memory access of NumPy and ImgLIb2 data structures.
 
+% this does not seem to work, just use external player instead
+% \end{frame}
+% \movie[width=\linewidth,height=\textheight]{BigDataViewer Demo}{vid/fafb-bdv.mp4}
+% \begin{frame}
+    
 \end{frame}
 
 % \begin{frame}
@@ -135,9 +145,9 @@
     \frametitle{What is Python?}
     \begin{itemize}
           \item<1-> Interpreted language with dynamic typing.
-          \item<2-> Access to native memory.
-          \item<3-> Efficient software through C/C++ extensions.
-          \item<4-> Interactive shell and notebooks.
+          \item<1-> Access to native memory.
+          \item<1-> Efficient software through C/C++ extensions.
+          \item<1-> Interactive shell and notebooks.
     \end{itemize}
 \end{frame}
 
@@ -145,8 +155,8 @@
     \frametitle{What is Java?}
     \begin{itemize}
           \item<1-> Statically typed language that compiles into byte code.
-          \item<2-> Byte code is executed within a virtual machine (JVM).
-          \item<3-> No access to native memory through Java language API.
+          \item<1-> Byte code is executed within a virtual machine (JVM).
+          \item<1-> No access to native memory through Java language API.
     \end{itemize}
 \end{frame}
 
@@ -221,14 +231,14 @@
             \setlength\itemsep{1em}
               \item<1->[] \urlScrSz{https://github.com/kivy/pyjnius}
         \end{itemize}
-          \item<2->[\only<3->{\color{green}\cmark}] Make ImgLib2 and NumPy understand each other.
+          \item<2->[\only<5->{\color{green}\cmark}] Make ImgLib2 and NumPy understand each other.
         \begin{itemize}
             \setlength{\itemindent}{-1.0cm}
               \item<3->[] \urlScrSz{https://github.com/imglib/imglib2-unsafe}
               \item<4->[] \urlScrSz{https://github.com/imglib/imglib2-imglyb}
               \item<5->[] \urlScrSz{https://github.com/imglib/imglyb}
         \end{itemize}
-        \visible<6->{
+        \visible<5->{
             \begin{tikzpicture}[overlay]
                 \draw[ultra thick, black, rounded corners=10] (-1.5,0.4) rectangle (9,2.10);
                 \node (contrib) at (0, -1.5) {My contribution};
@@ -344,6 +354,14 @@ imglyb-examples.views-stack
 \end{frame}
 
 \begin{frame}
+    \frametitle{Known Issues}
+    \begin{itemize}
+          \item Java awt and Swing require wrapper script on macOS
+          \item Dask Arrays cannot be wrapped as ImgLib2 data structures yet
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
     \frametitle{Example 1~--- BigDataViewer}
     BigDataViewer~(BDV) is a Java viewer for arbitrarily large multi-view 3D images and 3D image
     sequences developed by Tobias Pietzsch.
@@ -401,44 +419,92 @@ imglyb-examples.views-stack
 \end{frame}
 
 \begin{frame}
-    \frametitle{Known Issues}
-    \begin{itemize}
-          \item Java awt requires wrapper script on OSX
-          \item Dask Arrays cannot be wrapped into ImgLib2 cell images
-    \end{itemize}
-\end{frame}
-
-\begin{frame}
     \frametitle{Resources}
-    \centering
-    \vfill
-    \begin{tabulary}{\linewidth}{lL}
-        \includegraphics[height=0.04\textwidth]{fig/logos/python/python.png} & \urlScrSz{https://www.python.org} \\
-        \includegraphics[height=0.04\textwidth]{fig/logos/python/numpy.png} & \urlScrSz{https://www.numpy.org} \\
-        \includegraphics[height=0.04\textwidth]{fig/logos/python/scipy.png} & \urlScrSz{https://scipy.org} \\
-        \includegraphics[height=0.04\textwidth]{fig/logos/python/scikit-image.jpeg} & \urlScrSz{https://scikit-image.org} \\
-        \includegraphics[height=0.04\textwidth]{fig/logos/python/matplotlib.pdf} & \urlScrSz{https://matplotlib.org} \\
-        \includegraphics[height=0.04\textwidth]{fig/logos/imagej/imagej2.png} & \urlScrSz{https://imagej.net/ImageJ2} \\
-        \includegraphics[height=0.04\textwidth]{fig/logos/imagej/imglib2.png} & \urlScrSz{https://imagej.net/ImgLib2} \\
-        \includegraphics[height=0.04\textwidth]{fig/logos/imagej/paintera.png} & \urlScrSz{https://github.com/saalfeldlab/paintera} \\
-        \includegraphics[height=0.04\textwidth]{fig/logos/imagej/fiji.png} & \urlScrSz{https://fiji.sc/} \\
-        \includegraphics[height=0.04\textwidth]{fig/logos/imagej/mammut.png} & \urlScrSz{https://imagej.net/MaMuT} \\
-        \includegraphics[height=0.04\textwidth]{fig/bridge.pdf} & \urlScrSz{https://openclipart.org/detail/209218/firebog-bridge}
-    \end{tabulary}
+    \vspace{2em}
+    \newlength{\myYShift}
+    \newlength{\myXShift}
+    \newlength{\myHeight}
+    \setlength{\myYShift}{0.06\linewidth}
+    \setlength{\myXShift}{0.30\linewidth}
+    \setlength{\myHeight}{0.05\linewidth}
+    \begin{tikzpicture}
+        \begin{scope}[anchor=west]
+        \node[yshift=-0\myYShift] (python-icon)
+        {\includegraphics[height=\myHeight]{fig/logos/python/python.png}};
+        \node[yshift=-1\myYShift] (numpy-icon)
+        {\includegraphics[height=\myHeight]{fig/logos/python/numpy.png}};
+        \node[yshift=-2\myYShift] (python-icon)
+        {\includegraphics[height=\myHeight]{fig/logos/python/scipy.png}};
+        \node[yshift=-3\myYShift] (python-icon)
+        {\includegraphics[height=\myHeight]{fig/logos/python/scikit-image.jpeg}};
+        \node[yshift=-4\myYShift] (python-icon)
+        {\includegraphics[height=\myHeight]{fig/logos/python/matplotlib.pdf}};
+        \node[yshift=-5\myYShift] (python-icon)
+        {\includegraphics[height=\myHeight]{fig/logos/imagej/imagej2.png}};
+        \node[yshift=-6\myYShift] (python-icon)
+        {\includegraphics[height=\myHeight]{fig/logos/imagej/imglib2.png}};
+        \node[yshift=-7\myYShift] (python-icon)
+        {\includegraphics[height=\myHeight]{fig/logos/imagej/paintera.png}};
+        \node[yshift=-8\myYShift] (python-icon)
+        {\includegraphics[height=\myHeight]{fig/logos/imagej/fiji.png}};
+        \node[yshift=-9\myYShift] (python-icon)
+        {\includegraphics[height=\myHeight]{fig/logos/imagej/mammut.png}};
+        \node[yshift=-10\myYShift] (python-icon)
+        {\includegraphics[height=\myHeight]{fig/bridge.pdf}};
+    \end{scope}
+    \begin{scope}[xshift=\myXShift,anchor=west,font=\tiny]
+        \node[yshift=-0\myYShift]{\url{https://www.python.org}};
+        \node[yshift=-1\myYShift]{\url{https://www.numpy.org}};
+        \node[yshift=-2\myYShift]{\url{https://scipy.org}};
+        \node[yshift=-3\myYShift]{\url{https://scikit-image.org}};
+        \node[yshift=-4\myYShift]{\url{https://matplotlib.org}};
+        \node[yshift=-5\myYShift]{\url{https://imagej.net/ImageJ2}};
+        \node[yshift=-6\myYShift]{\url{https://imagej.net/ImgLib2}};
+        \node[yshift=-7\myYShift]{\url{https://github.com/saalfeldlab/paintera}};
+        \node[yshift=-8\myYShift]{\url{https://fiji.sc/}};
+        \node[yshift=-9\myYShift]{\url{https://imagej.net/MaMuT}};
+        \node[yshift=-10\myYShift]{\url{https://openclipart.org/detail/209218/firebog-bridge}};
+    \end{scope}
+    \end{tikzpicture}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Thank You!}
+    {%
+        \begin{tikzpicture}
+            \node[anchor=south west,xshift=0.75\linewidth] (qrcode) {\includegraphics[width=0.2\linewidth]{fig/slides-qr.png}};
+            \node[%
+            % rectangle,%
+            % draw=HHMIGreenB,%
+            % thick,%
+            inner sep=0,
+            xshift=0.0\linewidth,%
+            anchor=south west,
+            font=\footnotesize] (slides) {\url{https://github.com/hanslovsky/scipy-2019}};
+            % \path[draw=black,thick] (qrcode.west) to[bend left=45] node[above,midway,sloped] {Slides} (qrcode.north);
+            \path[%
+            % draw=black,%
+            % thick,%
+            postaction={decorate,decoration={text along path,text
+                    align=right,raise=-3.7ex,text={Link to Slides}}}%
+            ]%
+            (qrcode.center) circle (0.12\linewidth);
+            % (qrcode.west) to[bend right=60] (qrcode.south) to[bend right=45]
+            % (qrcode.east);
+        \end{tikzpicture}
+        % \large
+        % \url{https://github.com/hanslovsky/scipy-2019}
+    }%
+    \\[2em]
 \begin{lstlisting}[language=bash]
 conda install -c conda-forge imglyb
 pip install imglyb-examples
 \end{lstlisting}
-\urlScrSz{https://github.com/imglib/imglib2-unsafe}
-\urlScrSz{https://github.com/imglib/imglib2-imglyb}
-\urlScrSz{https://github.com/imglib/imglyb}
-\urlScrSz{https://github.com/hanslovsky/imglyb-examples}
-\urlScrSz{https://github.com/hanslovsky/imglyb-learnathon}
-\urlScrSz{https://github.com/hanslovsky/scipy-2019}
+    \urlScrSz{https://github.com/imglib/imglib2-unsafe}
+    \urlScrSz{https://github.com/imglib/imglib2-imglyb}
+    \urlScrSz{https://github.com/imglib/imglyb}
+    \urlScrSz{https://github.com/hanslovsky/imglyb-examples}
+    \urlScrSz{https://github.com/hanslovsky/imglyb-learnathon}
 \end{frame}
 
 \end{document}
